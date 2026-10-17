@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITServicePro | IT Services Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>ITServicePro</h2>
+            <p>IT Services Portal</p>
+        </div>
+
+        <nav id="sidebarNav">
+            <button class="nav-link active" data-page="dashboard">Dashboard</button>
+            <button class="nav-link" data-page="catalog">Service Catalog</button>
+            <button class="nav-link" data-page="tickets">Ticket Management</button>
+            <button class="nav-link" data-page="requests">Service Requests</button>
+            <button class="nav-link" data-page="assets">Asset Management</button>
+            <button class="nav-link" data-page="clients">Client Management</button>
+            <button class="nav-link" data-page="knowledge">Knowledge Base</button>
+            <button class="nav-link" data-page="reports">Reports & Analytics</button>
+        </nav>
+
+        <button id="darkModeBtn" class="dark-btn">🌙 Toggle Dark Mode</button>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <h2 id="pageTitle">Dashboard</h2>
+                <p>Welcome to your IT Services Management Portal</p>
+            </div>
+            <div class="administrator">Administrator <span>A</span></div>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="page active">
+            <h3>Dashboard Overview</h3>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <p>Total Tickets</p>
+                    <h2 id="totalTickets">0</h2>
+                </div>
+                <div class="stat-card">
+                    <p>Open Tickets</p>
+                    <h2 id="openTickets">0</h2>
+                </div>
+                <div class="stat-card">
+                    <p>Resolved Tickets</p>
+                    <h2 id="resolvedTickets">0</h2>
+                </div>
+                <div class="stat-card">
+                    <p>Total Assets</p>
+                    <h2 id="totalAssets">0</h2>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Recent Tickets</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>TICKET ID</th>
+                                <th>TITLE</th>
+                                <th>PRIORITY</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentTickets"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICE CATALOG -->
+        <section id="catalog" class="page">
+            <h3>Service Catalog</h3>
+            <div class="cards">
+                <div class="panel"><h3>💻 Hardware Support</h3><p>Computer and hardware troubleshooting.</p></div>
+                <div class="panel"><h3>🌐 Network Support</h3><p>Network and internet assistance.</p></div>
+                <div class="panel"><h3>🔐 Security Support</h3><p>Account security and access help.</p></div>
+                <div class="panel"><h3>🧑‍💻 Software Support</h3><p>Software installation and troubleshooting.</p></div>
+            </div>
+        </section>
+
+        <!-- TICKET MANAGEMENT -->
+        <section id="tickets" class="page">
+            <div class="section-heading">
+                <h3>Ticket Management</h3>
+                <button id="showTicketForm" class="primary-btn">+ Create Ticket</button>
+            </div>
+
+            <form id="ticketForm" class="panel form-grid hidden">
+                <h3 class="full">Create New Ticket</h3>
+
+                <label>Ticket Title
+                    <input id="ticketTitle" required placeholder="e.g. Computer Not Working">
+                </label>
+
+                <label>Category
+                    <select id="ticketCategory">
+                        <option>Hardware</option>
+                        <option>Software</option>
+                        <option>Network</option>
+                        <option>Security</option>
+                        <option>Other</option>
+                    </select>
+                </label>
+
+                <label>Priority
+                    <select id="ticketPriority">
+                        <option>Low</option>
+                        <option selected>Medium</option>
+                        <option>High</option>
+                        <option>Critical</option>
+                    </select>
+                </label>
+
+                <label>Assigned To
+                    <input id="ticketAssignee" placeholder="e.g. IT Support">
+                </label>
+
+                <label class="full">Description
+                    <textarea id="ticketDescription" required placeholder="Describe the problem"></textarea>
+                </label>
+
+                <div class="full form-actions">
+                    <button type="submit" class="primary-btn">Save Ticket</button>
+                    <button type="button" id="cancelTicket" class="secondary-btn">Cancel</button>
+                </div>
+            </form>
+
+            <div class="panel">
+                <div class="section-heading">
+                    <h3>All Tickets</h3>
+                    <input id="ticketSearch" placeholder="Search tickets...">
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Priority</th>
+                                <th>Assigned To</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ticketTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICE REQUESTS -->
+        <section id="requests" class="page">
+            <h3>Service Requests</h3>
+            <form id="requestForm" class="panel form-grid">
+                <label>Request Title
+                    <input id="requestTitle" required placeholder="e.g. Install MS Office">
+                </label>
+                <label>Request Type
+                    <select id="requestType">
+                        <option>Software Installation</option>
+                        <option>New Account</option>
+                        <option>Hardware Request</option>
+                        <option>Other</option>
+                    </select>
+                </label>
+                <button type="submit" class="primary-btn">Submit Request</button>
+            </form>
+
+            <div class="panel">
+                <h3>Submitted Requests</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>ID</th><th>Title</th><th>Type</th><th>Date</th></tr></thead>
+                        <tbody id="requestTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ASSETS -->
+        <section id="assets" class="page">
+            <h3>Asset Management</h3>
+            <form id="assetForm" class="panel form-grid">
+                <label>Asset Name
+                    <input id="assetName" required placeholder="e.g. Dell Laptop">
+                </label>
+                <label>Asset Type
+                    <select id="assetType">
+                        <option>Laptop</option>
+                        <option>Desktop</option>
+                        <option>Printer</option>
+                        <option>Server</option>
+                        <option>Other</option>
+                    </select>
+                </label>
+                <label>Serial Number
+                    <input id="assetSerial" required placeholder="e.g. LAP-001">
+                </label>
+                <label>Assigned User
+                    <input id="assetUser" placeholder="e.g. Ram">
+                </label>
+                <button type="submit" class="primary-btn">Add Asset</button>
+            </form>
+
+            <div class="panel">
+                <h3>Registered Assets</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Name</th><th>Type</th><th>Serial Number</th><th>Assigned User</th><th>Action</th></tr></thead>
+                        <tbody id="assetTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLIENTS -->
+        <section id="clients" class="page">
+            <h3>Client Management</h3>
+            <form id="clientForm" class="panel form-grid">
+                <label>Client Name
+                    <input id="clientName" required placeholder="Client name">
+                </label>
+                <label>Email
+                    <input id="clientEmail" type="email" required placeholder="client@example.com">
+                </label>
+                <label>Phone
+                    <input id="clientPhone" placeholder="Phone number">
+                </label>
+                <button type="submit" class="primary-btn">Add Client</button>
+            </form>
+
+            <div class="panel">
+                <h3>Registered Clients</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Action</th></tr></thead>
+                        <tbody id="clientTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- KNOWLEDGE BASE -->
+        <section id="knowledge" class="page">
+            <h3>Knowledge Base</h3>
+            <div class="panel">
+                <h3>How to Fix Common IT Problems</h3>
+                <details>
+                    <summary>What should I do if my computer is slow?</summary>
+                    <p>Close unused applications, restart the computer, and check available storage.</p>
+                </details>
+                <details>
+                    <summary>What should I do if the internet is not working?</summary>
+                    <p>Check your Wi-Fi connection, restart your router if appropriate, and contact IT support.</p>
+                </details>
+                <details>
+                    <summary>What should I do if I forget my password?</summary>
+                    <p>Use your organization's approved password-reset process or contact IT support.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- REPORTS -->
+        <section id="reports" class="page">
+            <h3>Reports & Analytics</h3>
+            <div class="stats">
+                <div class="stat-card"><p>Total Tickets</p><h2 id="reportTotal">0</h2></div>
+                <div class="stat-card"><p>Open Tickets</p><h2 id="reportOpen">0</h2></div>
+                <div class="stat-card"><p>Resolved Tickets</p><h2 id="reportResolved">0</h2></div>
+                <div class="stat-card"><p>Total Assets</p><h2 id="reportAssets">0</h2></div>
+            </div>
+            <button id="exportCsv" class="primary-btn">Export Tickets as CSV</button>
+        </section>
+
+        <footer>© 2026 ITServicePro | IT Services Management Portal</footer>
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
